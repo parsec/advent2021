@@ -29,15 +29,18 @@ func getInput(path string) ([]string, error) {
 	return lines, scanner.Err()
 }
 
-func depthIncreases(depths []string) int {
-	// convert []string to []int
-	depthInt := []int{}
-	for _, i := range depths {
+// convert []string to []int
+func strSliceToInt(inSlice []string) []int {
+	intSlice := []int{}
+	for _, i := range inSlice {
 		tmpInt, atoiErr := strconv.Atoi(i)
 		check(atoiErr)
-		depthInt = append(depthInt, tmpInt)
+		intSlice = append(intSlice, tmpInt)
 	}
+	return intSlice
+}
 
+func depthIncreases(depths []string) int {
 	increments := 0
 	// check the depths for increase over the previous
 	// skipping the first one of course :)

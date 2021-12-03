@@ -18,13 +18,14 @@ func findPosition(commands []string) (int, int) {
 		amount, atoiErr := strconv.Atoi(splitCmd[1])
 		helpers.Check(atoiErr)
 
+		// switch statement for incrementing on directionality
 		switch direction {
 		case "up":
-			y -= amount
+			y -= amount // reversed for depth, because up means less depth
 		case "down":
-			y += amount
+			y += amount // ditto, but the other way :)
 		case "forward":
-			x += amount
+			x += amount // go forard when it says to go forward!
 		}
 	}
 	return x, y
@@ -39,5 +40,5 @@ func main() {
 
 	fmt.Println("X: ", xPos)
 	fmt.Println("Y: ", yPos)
-	fmt.Println("Product of X*Y: ", product)
+	fmt.Println("Product of X*Y: ", product) // multiply the two per the puzzle instructions
 }

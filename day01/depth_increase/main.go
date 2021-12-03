@@ -41,8 +41,10 @@ func depthIncreases(depths []string) int {
 	increments := 0
 	// check the depths for increase over the previous
 	// skipping the first one of course :)
-	for _, depth := range depthInt {
-		if depth > depthInt[depth-1] {
+	for i, depth := range depthInt {
+		if i == 0 {
+			continue
+		} else if depth > depthInt[i-1] {
 			increments++
 		}
 	}
@@ -56,5 +58,5 @@ func main() {
 
 	totalIncrements := depthIncreases(depths)
 
-	fmt.Println("The total number of increments is: ", (totalIncrements - 1))
+	fmt.Println("The total number of increments is: ", totalIncrements)
 }

@@ -40,7 +40,7 @@ func strSliceToInt(inSlice []string) []int {
 	return intSlice
 }
 
-func depthIncreases(depths []string) int {
+func depthIncreases(depthInt []int) int {
 	increments := 0
 	// check the depths for increase over the previous
 	// skipping the first one of course :)
@@ -59,7 +59,8 @@ func main() {
 	depths, inputErr := getInput("../input.txt")
 	check(inputErr)
 
-	totalIncrements := depthIncreases(depths)
+	depthInt := strSliceToInt(depths)
+	totalIncrements := depthIncreases(depthInt)
 
 	fmt.Println("The total number of increments is: ", totalIncrements)
 }

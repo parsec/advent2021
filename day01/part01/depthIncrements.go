@@ -53,7 +53,7 @@ func depthIncreases(depths []string) int {
 }
 
 func main() {
-	depths, inputErr := getInput("./input.txt")
+	depths, inputErr := getInput("../input.txt")
 	check(inputErr)
 
 	totalIncrements := depthIncreases(depths)

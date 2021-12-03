@@ -25,7 +25,7 @@ func findPosition(commands []string) (int, int) {
 		case "down":
 			y += amount // ditto, but the other way :)
 		case "forward":
-			x += amount // go forard when it says to go forward!
+			x += amount // go forward when it says to go forward!
 		}
 	}
 	return x, y

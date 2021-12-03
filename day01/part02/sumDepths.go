@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -40,8 +41,17 @@ func strSliceToInt(inSlice []string) []int {
 	return intSlice
 }
 
-func slidingIncrements(depths []string) (int, error) {
+func slidingIncrements(depthsInt []int) int {
+	increments := 0
+	for i, depths := range depthsInt {
+		sumDepths := depths + depthsInt[i+1] + depthsInt[i+2]
+		sumDepthsNext := depthsInt[i+1] + depthsInt[i+2] + depthsInt[i+3]
 
+		if sumDepths < sumDepthsNext {
+			increments++
+		}
+	}
+	return increments
 }
 
 func main() {
@@ -49,5 +59,7 @@ func main() {
 	check(inputErr)
 
 	depthsInt := strSliceToInt(depths)
+	increments := slidingIncrements(depthsInt)
 
+	fmt.Println("Total increments: ", increments)
 }

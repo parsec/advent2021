@@ -39,3 +39,60 @@ func GetInput(path string) ([]string, error) {
 	}
 	return lines, scanner.Err()
 }
+
+// convert an []int to a []string
+func IntToStrSlice(intSlice []int) []string {
+	strSlice := []string{}
+
+	for i := range intSlice {
+		num := strconv.Itoa(intSlice[i])
+		strSlice = append(strSlice, num)
+	}
+
+	return strSlice
+}
+
+func CommonBits(howCommon string, data []string) []string {
+	zeroes := []int{}
+	ones := []int{}
+	results := []int{}
+
+	// iterate over the data, line by line (bit by bit!) to count bit occurences
+	for i := range data {
+		for x, bit := range data[i] {
+			if bit == 0 {
+				zeroes[x] += 1
+				ones[x] += 0
+			} else if bit == 1 {
+				ones[x] += 1
+				zeroes[x] += 0
+			}
+		}
+	}
+
+	// compare both int slices to determine which value was greater for that column, 0 or 1
+	// in this use case, we want to be able to get either least or most common bits for specific values
+	switch howCommon {
+	case "least":
+		for i := range ones {
+			if ones[i] < zeroes[i] {
+				results[i] = 1
+			} else if ones[i] > zeroes[i] {
+				results[i] = 0
+			}
+		}
+	case "most":
+		for i := range ones {
+			if ones[i] > zeroes[i] {
+				results[i] = 1
+			} else if ones[i] < zeroes[i] {
+				results[i] = 0
+			}
+		}
+	default:
+		results[0] = -1
+	}
+
+	resultsStr := IntToStrSlice(results)
+	return resultsStr
+}

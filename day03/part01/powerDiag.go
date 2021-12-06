@@ -8,21 +8,21 @@ import (
 	helpers "parsec.sh/lib"
 )
 
-func calcGammaRate(diagData []string) int {
+func calcGammaRate(diagData []string) int64 {
 	dataCompared := helpers.CommonBits("most", diagData)
-	rateStr := strings.Join(dataCompared, ",")
+	rateStr := strings.Join(dataCompared, "")
 
-	gammaRate, err := strconv.Atoi(rateStr)
+	gammaRate, err := strconv.ParseInt(rateStr, 2, 0)
 	helpers.Check(err)
 
 	return gammaRate
 }
 
-func calcEpsilonRate(diagData []string) int {
+func calcEpsilonRate(diagData []string) int64 {
 	dataCompared := helpers.CommonBits("least", diagData)
-	rateStr := strings.Join(dataCompared, ",")
+	rateStr := strings.Join(dataCompared, "")
 
-	epsilonRate, err := strconv.Atoi(rateStr)
+	epsilonRate, err := strconv.ParseInt(rateStr, 2, 0)
 	helpers.Check(err)
 
 	return epsilonRate

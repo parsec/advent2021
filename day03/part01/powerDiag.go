@@ -28,13 +28,18 @@ func calcEpsilonRate(diagData []string) int64 {
 	return epsilonRate
 }
 
+func calcPowerConsumption(gammaRate int64, epsilonRate int64) int64 {
+
+	powerConsumption := gammaRate * epsilonRate
+
+	return powerConsumption
+}
+
 func main() {
 	diagReport, diagErr := helpers.GetInput("../input.txt")
 	helpers.Check(diagErr)
 
-	gammaRate := calcGammaRate(diagReport)
-	epsilonRate := calcEpsilonRate(diagReport)
-	powerConsumption := gammaRate * epsilonRate
+	powerConsumption := calcPowerConsumption(calcGammaRate(diagReport), calcEpsilonRate(diagReport))
 
 	fmt.Println("Power consumption: ", powerConsumption)
 }

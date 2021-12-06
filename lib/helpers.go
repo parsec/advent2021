@@ -53,17 +53,18 @@ func IntToStrSlice(intSlice []int) []string {
 }
 
 func CommonBits(howCommon string, data []string) []string {
-	zeroes := []int{}
-	ones := []int{}
-	results := []int{}
+	zeroes := make([]int, len(data[0]))
+	ones := make([]int, len(data[0]))
+	results := make([]int, len(data[0]))
 
 	// iterate over the data, line by line (bit by bit!) to count bit occurences
 	for i := range data {
-		for x, bit := range data[i] {
-			if bit == 0 {
+		bits := []rune(data[i])
+		for x := range bits {
+			if string(bits[x]) == "0" {
 				zeroes[x] += 1
 				ones[x] += 0
-			} else if bit == 1 {
+			} else if string(bits[x]) == "1" {
 				ones[x] += 1
 				zeroes[x] += 0
 			}

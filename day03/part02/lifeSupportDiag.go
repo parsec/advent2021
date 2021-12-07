@@ -8,15 +8,15 @@ import (
 	helpers "parsec.sh/lib"
 )
 
+// take in slice containing diag data, parse index bit for common bits and remove those that don't match
 func oxygenGenRating(diagData []string) int64 {
 	mostCommonBits := helpers.CommonBits("most", diagData)
 	o2RateBits := make([]string, len(mostCommonBits))
 	o2Rating := diagData
 
 	for i := range mostCommonBits {
-
 		for x := range o2Rating {
-			if x > (len(o2Rating) - 1) {
+			if x > (len(o2Rating) - 1) { // break if the current index is greater than the current indices
 				break
 			}
 			bits := []rune(o2Rating[x])

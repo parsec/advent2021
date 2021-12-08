@@ -17,7 +17,7 @@ func oxygenGenRating(diagData []string) int64 {
 	for i := range mostCommonBits {
 		for x := range o2Rating {
 			if x > (len(o2Rating) - 1) { // break if the current index is greater than the current indices
-				break
+				x--
 			}
 			bits := []rune(o2Rating[x])               // convert current index of o2Rating to []rune slice for comparison
 			if string(bits[i]) != mostCommonBits[i] { // replace index with last index in slice if bit is not common
@@ -37,6 +37,7 @@ func oxygenGenRating(diagData []string) int64 {
 
 func cO2ScrubberRating(diagData []string) int64 {
 	// todo
+	return 1
 }
 
 func calcLifeSupport(o2Rate int64, cO2Rate int64) int64 {

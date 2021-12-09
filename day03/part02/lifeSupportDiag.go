@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"strconv"
-	"strings"
 
 	helpers "parsec.sh/lib"
 )
@@ -11,33 +10,30 @@ import (
 // take in slice containing diag data, parse index bit for common bits and remove those that don't match
 func oxygenGenRating(diagData []string) int64 {
 	mostCommonBits := helpers.CommonBits("most", diagData)
-	o2RateBits := make([]string, len(mostCommonBits))
 	o2Rating := diagData
 
 	for i := range mostCommonBits {
-		for x := range o2Rating {
-			if x > (len(o2Rating) - 1) { // break if the current index is greater than the current indices
-				x--
-			}
-			bits := []rune(o2Rating[x])               // convert current index of o2Rating to []rune slice for comparison
-			if string(bits[i]) != mostCommonBits[i] { // replace index with last index in slice if bit is not common
-				o2Rating[x] = o2Rating[len(o2Rating)-1]
-				o2Rating[len(o2Rating)-1] = ""
-				o2Rating = o2Rating[:len(o2Rating)-1]
-			}
-		}
+		o2Rating = helpers.Filter(o2Rating, mostCommonBits[i], i, helpers.CheckBit)
 	}
 
-	rateStr := strings.Join(o2RateBits, "")
-	o2Rate, err := strconv.ParseInt(rateStr, 2, 0)
+	o2Rate, err := strconv.ParseInt(o2Rating[0], 2, 0)
 	helpers.Check(err)
 
 	return o2Rate
 }
 
 func cO2ScrubberRating(diagData []string) int64 {
-	// todo
-	return 1
+	leastCommonBits := helpers.CommonBits("least", diagData)
+	cO2Rating := diagData
+
+	for i := range leastCommonBits {
+		cO2Rating = helpers.Filter(cO2Rating, leastCommonBits[i], i, helpers.CheckBit)
+	}
+
+	cO2Rate, err := strconv.ParseInt(cO2Rating[0], 2, 0)
+	helpers.Check(err)
+
+	return cO2Rate
 }
 
 func calcLifeSupport(o2Rate int64, cO2Rate int64) int64 {

@@ -97,3 +97,22 @@ func CommonBits(howCommon string, data []string) []string {
 	resultsStr := IntToStrSlice(results)
 	return resultsStr
 }
+
+func Filter(inSlice []string, bit string, index int, f func(string, rune) bool) []string {
+	outSlice := make([]string, 0)
+	for _, v := range inSlice {
+		s := []rune(v)[index]
+		if f(bit, s) {
+			outSlice = append(outSlice, v)
+		}
+	}
+	return outSlice
+}
+
+func CheckBit(bit string, char rune) bool {
+	if bit == string(char) {
+		return true
+	} else {
+		return false
+	}
+}

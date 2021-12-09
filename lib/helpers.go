@@ -63,10 +63,9 @@ func CommonBits(howCommon string, data []string) []string {
 		for x := range bits {
 			if string(bits[x]) == "0" {
 				zeroes[x] += 1
-				ones[x] += 0
-			} else if string(bits[x]) == "1" {
+			}
+			if string(bits[x]) == "1" {
 				ones[x] += 1
-				zeroes[x] += 0
 			}
 		}
 	}
@@ -75,16 +74,20 @@ func CommonBits(howCommon string, data []string) []string {
 	// in this use case, we want to be able to get either least or most common bits for specific values
 	switch howCommon {
 	case "least":
-		for i := range ones {
-			if ones[i] < zeroes[i] {
+		for i := range results {
+			if ones[i] == zeroes[i] {
+				results[i] = 0
+			} else if ones[i] < zeroes[i] {
 				results[i] = 1
 			} else if ones[i] > zeroes[i] {
 				results[i] = 0
 			}
 		}
 	case "most":
-		for i := range ones {
-			if ones[i] > zeroes[i] {
+		for i := range results {
+			if ones[i] == zeroes[i] {
+				results[i] = 1
+			} else if ones[i] > zeroes[i] {
 				results[i] = 1
 			} else if ones[i] < zeroes[i] {
 				results[i] = 0
